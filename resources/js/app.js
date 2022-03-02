@@ -1,9 +1,24 @@
 require('./bootstrap');
 
-
 import { createApp } from 'vue'
+import { createStore } from 'vuex'
+
 import PuzzleBase from './components/PuzzleBase'
 
+const store = createStore({
+  state() {
+    return {
+      answers: [],
+      results: [],
+    }
+  },
+  mutations: {
+
+  },
+  actions: {
+
+  }
+})
 
 const app = createApp({
   components: {
@@ -11,4 +26,5 @@ const app = createApp({
   }
 })
 
+app.use(store)
 app.mount('#app');
