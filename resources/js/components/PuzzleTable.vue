@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <PuzzleRow v-for="(answer, index) in answers" :key="index"/>
+    <PuzzleRow v-for="(answer, index) in answers"
+               :key="index"
+    />
   </div>
 </template>
 
@@ -17,7 +19,7 @@ export default {
         ['', '', '', '', ''],
         ['', '', '', '', ''],
         ['', '', '', '', ''],
-          ['', '', '', '', '']
+        ['', '', '', '', '']
       ],
     }
   }
