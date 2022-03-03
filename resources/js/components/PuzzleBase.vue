@@ -6,6 +6,8 @@
       <h1 class="text-4xl font-bold font-serif">Wordle</h1>
     </header>
 
+    <ModalMessage/>
+
     <PuzzleTable/>
 
     <PuzzleKeyboards/>
@@ -15,15 +17,16 @@
 <script>
 import PuzzleTable from "./PuzzleTable";
 import PuzzleKeyboards from "./PuzzleKeyboards";
+import ModalMessage from "./ModalMessage";
 
 export default {
-  components: {PuzzleKeyboards, PuzzleTable},
+  components: {ModalMessage, PuzzleKeyboards, PuzzleTable},
   methods: {
     keyUp(event) {
       // console.log('Base', event);
       // console.log('KeyCode:' + event.key, event.keyCode);
       if (event.keyCode === 8) { // Backspace or Delete
-        this.$store.dispatch('deleteWord')
+        this.$store.dispatch('deleteAnswer')
       }
       if (event.keyCode === 13) { // Enter
         this.$store.dispatch('enterRow')

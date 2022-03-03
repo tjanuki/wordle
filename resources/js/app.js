@@ -1,3 +1,5 @@
+import Checker from "./checker";
+
 require('./bootstrap');
 
 import {createApp} from 'vue'
@@ -11,6 +13,7 @@ const store = createStore({
     return {
       answers: [[]],
       currentRow: 0,
+      message: '',
     }
   },
   // getters: {
@@ -19,22 +22,28 @@ const store = createStore({
   //   }
   // },
   mutations: {
-    addWord(state, payload) {
+    addAnswer(state, payload) {
       // if (Array.isArray(state.answers[state.currentRow])) {
-        state.answers[state.currentRow].push(payload)
+      state.answers[state.currentRow].push(payload)
       // } else {
       //   state.answers[state.currentRow] = [payload]
       // }
     },
-    deleteWord(state) {
+    deleteAnswer(state) {
       // state.answers[state.currentRow].pop()
       state.answers[state.currentRow].pop()
+    },
+    updateAnswer(state, payload) {
+      state.answers[state.currentRow] = payload
     },
     incrementCurrentRow(state) {
       console.log('increment', state.currentRow);
       state.currentRow++
       state.answers[state.currentRow] = []
-    }
+    },
+    updateMessage(state, payload) {
+      state.message = payload
+    },
   },
   actions: {
     clickButton(context, payload) {
@@ -43,14 +52,13 @@ const store = createStore({
         return
       }
 
-      context.commit('addWord', new Word(payload.key, 'draft'))
+      context.commit('addAnswer', new Word(payload.key, 'draft'))
     },
-    deleteWord(context) {
+    deleteAnswer(context) {
       if (context.state.answers[context.state.currentRow] <= 0) {
         return
       }
-
-      context.commit('deleteWord')
+      context.commit('deleteAnswer')
     },
     enterRow(context) {
       if (context.state.answers[context.state.currentRow].length !== 5) {
@@ -60,6 +68,20 @@ const store = createStore({
       if (context.state.currentRow > 5) {
         return
       }
+
+      let checker = new Checker(context.state.answers[context.state.currentRow])
+      if (!checker.isValidWord()) {
+        context.commit('updateMessage', 'Not in word list')
+        setTimeout(() => {
+          context.commit('updateMessage', '')
+        }, 1000)
+        return false;
+      }
+
+      let results = checker.getResults()
+      console.log(results);
+      context.commit('updateAnswer', results)
+
 
       context.commit('incrementCurrentRow')
 
