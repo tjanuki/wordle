@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col">
-    <PuzzleRow v-for="(answer, index) in answers"
+    <PuzzleRow v-for="index in Array(6).keys()"
+               :row="index"
                :key="index"
     />
   </div>
@@ -11,17 +12,5 @@ import PuzzleRow from "./PuzzleRow";
 
 export default {
   components: {PuzzleRow},
-  data() {
-    return {
-      answers: [
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', '']
-      ],
-    }
-  }
 }
 </script>

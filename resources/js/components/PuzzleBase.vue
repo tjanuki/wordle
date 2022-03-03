@@ -13,7 +13,8 @@
 <script>
 import PuzzleTable from "./PuzzleTable";
 import PuzzleKeyboards from "./PuzzleKeyboards";
+
 export default {
-  components: {PuzzleKeyboards, PuzzleTable}
+  components: {PuzzleKeyboards, PuzzleTable},
 }
 </script>

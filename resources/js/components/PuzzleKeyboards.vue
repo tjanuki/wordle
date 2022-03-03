@@ -24,7 +24,7 @@
       <KeyButton input-key="l" />
     </div>
     <div class="flex justify-center">
-      <KeyButton input-key="ENTER" />
+      <KeyButton input-key="enter" />
       <KeyButton input-key="z" />
       <KeyButton input-key="x" />
       <KeyButton input-key="c" />
@@ -33,13 +33,13 @@
       <KeyButton input-key="n" />
       <KeyButton input-key="m" />
       <KeyButton input-key="m" />
-      <KeyButton input-key="DEL" />
+      <KeyButton input-key="del"/>
     </div>
   </div>
 </template>
 <script>
 import KeyButton from "./KeyButton";
 export default {
-  components: {KeyButton}
+  components: {KeyButton},
 }
 </script>
