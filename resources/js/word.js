@@ -12,6 +12,10 @@ export default class Word {
     return this.status === 'draft'
   }
 
+  isChecked() {
+    return this.status === 'checked'
+  }
+
   isExact() {
     return this.status === 'exact'
   }
@@ -25,7 +29,7 @@ export default class Word {
   }
 
   isFixed() {
-    return ! this.isEmpty() && ! this.isDraft()
+    return ! this.isEmpty() && ! this.isDraft() && ! this.isChecked()
   }
 }
 

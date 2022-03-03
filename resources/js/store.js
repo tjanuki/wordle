@@ -56,42 +56,35 @@ const store = createStore({
       }
       context.commit('deleteAnswer')
     },
-    checkInvalid(context) {
-      if (context.state.gameStatus) {
-        return
-      }
-      if (context.state.answers[context.state.currentRow].length !== 5) {
-        return
-      }
-
-      let checker = new Checker(context.state.answers[context.state.currentRow])
-      if (!checker.isValidWord()) {
-        context.commit('updateMessage', 'Not in word list')
-        context.commit('updateGameStatus', 'invalid')
-        setTimeout(() => {
-          context.commit('updateMessage', '')
-          context.commit('updateGameStatus', '')
-        }, 1000)
-      }
-    },
     enterRow(context) {
       if (context.state.gameStatus) {
         return
       }
+
       if (context.state.answers[context.state.currentRow].length !== 5) {
         return
       }
 
       let checker = new Checker(context.state.answers[context.state.currentRow])
+      let results = checker.getResults()
       if (!checker.isValidWord()) {
+
+        results.forEach((word, index) => {
+          context.commit('updateAnswer', {index, word})
+        })
+
         context.commit('updateMessage', 'Not in word list')
+        context.commit('updateGameStatus', 'invalid')
+        setTimeout(() => {
+          context.commit('updateGameStatus', '')
+        }, 600)
         setTimeout(() => {
           context.commit('updateMessage', '')
         }, 1000)
+
         return false;
       }
 
-      let results = checker.getResults()
       results.forEach((word, index) => {
         setTimeout(() => {
           context.commit('updateAnswer', {index, word})
@@ -99,8 +92,6 @@ const store = createStore({
       })
 
       setTimeout(() => {
-
-        context.commit('incrementCurrentRow')
 
         if (checker.isCleared()) {
           context.commit('updateMessage', 'Great!')
@@ -113,6 +104,7 @@ const store = createStore({
           return;
         }
 
+        context.commit('incrementCurrentRow')
         if (context.state.currentRow > 5) {
           context.commit('updateGameStatus', 'Failed')
         }

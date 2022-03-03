@@ -6,6 +6,7 @@
 .pop-in {
     animation: .1s pop-in-animation;
 }
+
 @keyframes pop-in-animation {
     0% {
         transition: scale .05s;
@@ -19,11 +20,32 @@
 .flip {
     animation: .3s flip-animation ease-in;
 }
+
 @keyframes flip-animation {
     0% {
-        transform: rotateX(-180deg);
+        transform: rotateX(-45deg);
     }
     100% {
         transform: rotate(0);
+    }
+}
+
+.shake {
+    animation: .2s shake-animation ease;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake-animation {
+    0% {
+        transform: translate(4px, 0)
+    }
+    25% {
+        transform: translate(-4px, 0)
+    }
+    50% {
+        transform: translate(4px, 0)
+    }
+    100% {
+        transform: translate(-4px, 0)
     }
 }

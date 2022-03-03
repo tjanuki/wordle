@@ -12,7 +12,7 @@ export default class Checker {
   }
 
   isValidWord() {
-    return words.includes(this.getWord())
+    return wordList.includes(this.getWord())
   }
 
   isCleared() {
@@ -25,6 +25,11 @@ export default class Checker {
 
   getResults() {
     for (let i in this.words) {
+      if (!this.isValidWord()) {
+        this.results.push(new Word(this.words[i].word, 'checked'))
+        continue
+      }
+
       // console.log('answer', this.answer.substr(i, 1));
       if (this.words[i].word === this.answer.substr(i, 1)) {
         // console.log(this.words[i].word, 'exact');
@@ -47,7 +52,7 @@ export default class Checker {
   }
 }
 
-const words = [
+const wordList = [
   'HAPPY',
   'HELLO',
   'PUPPY',
