@@ -14,23 +14,14 @@ const store = createStore({
       answers: [[]],
       currentRow: 0,
       message: '',
+      gameStatus: ''
     }
   },
-  // getters: {
-  //   currentAnswers(state) {
-  //     return state.answers[state.answers.length] || []
-  //   }
-  // },
   mutations: {
     addAnswer(state, payload) {
-      // if (Array.isArray(state.answers[state.currentRow])) {
       state.answers[state.currentRow].push(payload)
-      // } else {
-      //   state.answers[state.currentRow] = [payload]
-      // }
     },
     deleteAnswer(state) {
-      // state.answers[state.currentRow].pop()
       state.answers[state.currentRow].pop()
     },
     updateAnswer(state, payload) {
@@ -44,9 +35,15 @@ const store = createStore({
     updateMessage(state, payload) {
       state.message = payload
     },
+    updateGameStatus(state, payload) {
+      state.gameStatus = payload
+    },
   },
   actions: {
     clickButton(context, payload) {
+      if (context.state.gameStatus) {
+        return
+      }
       let currentAnswers = context.state.answers[context.state.currentRow]
       if (currentAnswers && currentAnswers.length >= 5) {
         return
@@ -55,17 +52,19 @@ const store = createStore({
       context.commit('addAnswer', new Word(payload.key, 'draft'))
     },
     deleteAnswer(context) {
+      if (context.state.gameStatus) {
+        return
+      }
       if (context.state.answers[context.state.currentRow] <= 0) {
         return
       }
       context.commit('deleteAnswer')
     },
     enterRow(context) {
-      if (context.state.answers[context.state.currentRow].length !== 5) {
+      if (context.state.gameStatus) {
         return
       }
-
-      if (context.state.currentRow > 5) {
+      if (context.state.answers[context.state.currentRow].length !== 5) {
         return
       }
 
@@ -81,12 +80,21 @@ const store = createStore({
       let results = checker.getResults()
       console.log(results);
       context.commit('updateAnswer', results)
-
-
       context.commit('incrementCurrentRow')
 
+      if (checker.isCleared()) {
+        context.commit('updateMessage', 'Great!')
+        setTimeout(() => {
+          context.commit('updateMessage', '')
+        }, 1000)
+
+        context.commit('updateGameStatus', 'Complete')
+
+        return;
+      }
+
       if (context.state.currentRow > 5) {
-        console.log('You are done!');
+        context.commit('updateGameStatus', 'Failed')
       }
     }
   },
