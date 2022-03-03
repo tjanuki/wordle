@@ -32,7 +32,6 @@
       <KeyButton input-key="b" />
       <KeyButton input-key="n" />
       <KeyButton input-key="m" />
-      <KeyButton input-key="m" />
       <KeyButton input-key="del"/>
     </div>
   </div>

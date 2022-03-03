@@ -1,14 +1,15 @@
 <template>
   <div class="flex">
-    <div v-for="answer in answers"
-         class="border border-gray-400 w-16 h-16 m-1 text-4xl font-bold flex justify-center items-center">
-      {{ answer && answer.word ? answer.word.toUpperCase() : '' }}
-    </div>
+    <PuzzleWord v-for="answer in answers"
+                :answer="answer"
+    />
   </div>
 </template>
 
 <script>
+import PuzzleWord from "./PuzzleWord";
 export default {
+  components: {PuzzleWord},
   props: {
     row: Number
   },

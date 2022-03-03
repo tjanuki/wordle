@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.pop-in {
+    animation: .1s pop-in-animation;
+}
+@keyframes pop-in-animation {
+    0% {
+        transition: scale .05s;
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

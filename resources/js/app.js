@@ -4,13 +4,7 @@ import {createApp} from 'vue'
 import {createStore} from 'vuex'
 
 import PuzzleBase from './components/PuzzleBase'
-
-class Word {
-  constructor(word) {
-    this.word = word;
-    this.status = null;
-  }
-}
+import Word from './word.js'
 
 const store = createStore({
   state() {
@@ -33,6 +27,7 @@ const store = createStore({
       // }
     },
     deleteWord(state) {
+      // state.answers[state.currentRow].pop()
       state.answers[state.currentRow].pop()
     },
     incrementCurrentRow(state) {
@@ -48,7 +43,7 @@ const store = createStore({
         return
       }
 
-      context.commit('addWord', new Word(payload.key))
+      context.commit('addWord', new Word(payload.key, 'draft'))
     },
     deleteWord(context) {
       if (context.state.answers[context.state.currentRow] <= 0) {
