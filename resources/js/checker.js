@@ -1,8 +1,9 @@
 import Word from "./word";
+import { dict } from './dict'
 
 export default class Checker {
-  constructor(words) {
-    this.answer = 'happy'
+  constructor(answer, words) {
+    this.answer = answer
     this.words = words
     this.results = []
   }
@@ -12,7 +13,7 @@ export default class Checker {
   }
 
   isValidWord() {
-    return wordList.includes(this.getWord())
+    return dict.includes(this.getWord())
   }
 
   isCleared() {
@@ -53,13 +54,13 @@ export default class Checker {
   }
 }
 
-const wordList = [
-  'happy',
-  'hello',
-  'puppy',
-  'audio',
-  'under',
-  'sunny',
-  'kitty',
-  'apple'
-]
+// const wordList = [
+//   'happy',
+//   'hello',
+//   'puppy',
+//   'audio',
+//   'under',
+//   'sunny',
+//   'kitty',
+//   'apple'
+// ]

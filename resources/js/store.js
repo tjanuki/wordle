@@ -3,6 +3,7 @@ import Checker from "./checker";
 import {createStore} from 'vuex'
 
 import Word from './word.js'
+import {dict} from "./dict";
 
 const store = createStore({
   state() {
@@ -15,13 +16,13 @@ const store = createStore({
     }
   },
   mutations: {
-    addAnswer(state, payload) {
+    addAnswers(state, payload) {
       state.answers[state.currentRow].push(payload)
     },
-    deleteAnswer(state) {
+    deleteAnswers(state) {
       state.answers[state.currentRow].pop()
     },
-    updateAnswer(state, payload) {
+    updateAnswers(state, payload) {
       state.answers[state.currentRow][payload.index] = payload.word
     },
     incrementCurrentRow(state) {
@@ -35,8 +36,15 @@ const store = createStore({
     updateGameStatus(state, payload) {
       state.gameStatus = payload
     },
+    updateAnswer(state, payload) {
+      state.answer = payload
+    },
   },
   actions: {
+    init(context) {
+      let answer = dict[Math.floor(Math.random()*dict.length)]
+      context.commit('updateAnswer', answer)
+    },
     clickButton(context, payload) {
       if (context.state.gameStatus) {
         return
@@ -45,7 +53,7 @@ const store = createStore({
         return
       }
 
-      context.commit('addAnswer', new Word(payload.key.toLowerCase(), 'draft'))
+      context.commit('addAnswers', new Word(payload.key.toLowerCase(), 'draft'))
     },
     deleteAnswer(context) {
       if (context.state.gameStatus) {
@@ -54,7 +62,7 @@ const store = createStore({
       if (context.state.answers[context.state.currentRow] <= 0) {
         return
       }
-      context.commit('deleteAnswer')
+      context.commit('deleteAnswers')
     },
     enterRow(context) {
       if (context.state.gameStatus) {
@@ -65,12 +73,12 @@ const store = createStore({
         return
       }
 
-      let checker = new Checker(context.state.answers[context.state.currentRow])
+      let checker = new Checker(context.state.answer, context.state.answers[context.state.currentRow])
       let results = checker.getResults()
       if (!checker.isValidWord()) {
 
         results.forEach((word, index) => {
-          context.commit('updateAnswer', {index, word})
+          context.commit('updateAnswers', {index, word})
         })
 
         context.commit('updateMessage', 'Not in word list')
@@ -87,7 +95,7 @@ const store = createStore({
 
       results.forEach((word, index) => {
         setTimeout(() => {
-          context.commit('updateAnswer', {index, word})
+          context.commit('updateAnswers', {index, word})
         }, 300 * index)
       })
 
@@ -96,7 +104,7 @@ const store = createStore({
         if (checker.isCleared()) {
           results.forEach((word, index) => {
             setTimeout(() => {
-              context.commit('updateAnswer', {
+              context.commit('updateAnswers', {
                 index,
                 word: new Word(word.word, 'completed')
               })
@@ -115,7 +123,7 @@ const store = createStore({
 
         context.commit('incrementCurrentRow')
         if (context.state.currentRow > 5) {
-          context.commit('updateMessage', context.state.answer)
+          context.commit('updateMessage', context.state.answer.toUpperCase())
           context.commit('updateGameStatus', 'Failed')
         }
       }, 1500)

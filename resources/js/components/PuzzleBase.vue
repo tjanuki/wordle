@@ -41,6 +41,7 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch('init')
     document.addEventListener('keyup', this.keyUp)
   },
   onUnmounted() {
