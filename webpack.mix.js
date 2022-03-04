@@ -17,11 +17,3 @@ mix.js('resources/js/app.js', 'public/js')
   ])
   .vue()
 ;
-if (!mix.inProduction()) {
-  mix.options({
-    hmrOptions: {
-      host: 'wordle.test',
-      port: 8087
-    }
-  })
-}

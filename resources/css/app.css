@@ -23,7 +23,7 @@
 
 @keyframes flip-animation {
     0% {
-        transform: rotateX(-45deg);
+        transform: rotateX(-90deg);
     }
     100% {
         transform: rotate(0);
@@ -47,5 +47,26 @@
     }
     100% {
         transform: translate(-4px, 0)
+    }
+}
+.jump {
+    animation: 1s jump-animation ease;
+}
+
+@keyframes jump-animation {
+    0% {
+        transform: translate(0, -10%)
+    }
+    25% {
+        transform: translate(0, -60%)
+    }
+    50% {
+        transform: translate(0, -20%)
+    }
+    75% {
+        transform: translate(0, -40%)
+    }
+    100% {
+        transform: translate(0, 0)
     }
 }

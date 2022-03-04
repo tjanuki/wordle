@@ -8,6 +8,7 @@ const store = createStore({
   state() {
     return {
       answers: [[]],
+      answer: '',
       currentRow: 0,
       message: '',
       gameStatus: ''
@@ -40,12 +41,11 @@ const store = createStore({
       if (context.state.gameStatus) {
         return
       }
-      let currentAnswers = context.state.answers[context.state.currentRow]
-      if (currentAnswers && currentAnswers.length >= 5) {
+      if (context.state.answers[context.state.currentRow].length >= 5) {
         return
       }
 
-      context.commit('addAnswer', new Word(payload.key, 'draft'))
+      context.commit('addAnswer', new Word(payload.key.toLowerCase(), 'draft'))
     },
     deleteAnswer(context) {
       if (context.state.gameStatus) {
@@ -94,18 +94,28 @@ const store = createStore({
       setTimeout(() => {
 
         if (checker.isCleared()) {
-          context.commit('updateMessage', 'Great!')
+          results.forEach((word, index) => {
+            setTimeout(() => {
+              context.commit('updateAnswer', {
+                index,
+                word: new Word(word.word, 'completed')
+              })
+            }, 150 * index)
+          })
+
+          context.commit('updateMessage', 'Genius!')
           setTimeout(() => {
             context.commit('updateMessage', '')
-          }, 2500)
+          }, 3000)
 
-          context.commit('updateGameStatus', 'Complete')
+          context.commit('updateGameStatus', 'Completed')
 
           return;
         }
 
         context.commit('incrementCurrentRow')
         if (context.state.currentRow > 5) {
+          context.commit('updateMessage', context.state.answer)
           context.commit('updateGameStatus', 'Failed')
         }
       }, 1500)

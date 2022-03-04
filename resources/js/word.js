@@ -20,6 +20,10 @@ export default class Word {
     return this.status === 'exact'
   }
 
+  isCompleted() {
+    return this.status === 'completed'
+  }
+
   isUsed() {
     return this.status === 'used'
   }

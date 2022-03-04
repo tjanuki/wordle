@@ -25,7 +25,7 @@ export default {
       }
 
       return this.$store.state.gameStatus === 'invalid'
-    }
+    },
   }
 }
 </script>

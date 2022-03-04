@@ -2,7 +2,7 @@
   <div class="font-bold px-4 py-4 mx-1 my-1 rounded"
        :class="{ 'border-green-600 bg-green-600': isExact, 'border-amber-300 bg-amber-300': isUsed, 'border-gray-500 bg-gray-500': isInvalid, 'bg-gray-300 border-gray': isEmpty}"
        @click="clickButton"
-  ><span :class="{'text-white': !isEmpty}">{{ inputKey }}</span>
+  ><span :class="{'text-white': !isEmpty}"><slot/></span>
   </div>
 </template>
 <script>
@@ -48,7 +48,7 @@ export default {
   methods: {
     clickButton() {
       if (this.inputKey === 'del') {
-        return this.$store.dispatch('deleteWord')
+        return this.$store.dispatch('deleteAnswer')
       }
 
       if (this.inputKey === 'enter') {

@@ -2,13 +2,13 @@ import Word from "./word";
 
 export default class Checker {
   constructor(words) {
-    this.answer = 'HAPPY'
+    this.answer = 'happy'
     this.words = words
     this.results = []
   }
 
   getWord() {
-    return this.words.map((item) => item.word).join('').toUpperCase()
+    return this.words.map((item) => item.word).join('')
   }
 
   isValidWord() {
@@ -30,7 +30,8 @@ export default class Checker {
         continue
       }
 
-      // console.log('answer', this.answer.substr(i, 1));
+      // console.log('answer', this.words[i].word);
+      // console.log('word', this.answer.substr(i, 1));
       if (this.words[i].word === this.answer.substr(i, 1)) {
         // console.log(this.words[i].word, 'exact');
         this.results.push(new Word(this.words[i].word, 'exact'))
@@ -38,7 +39,7 @@ export default class Checker {
       }
 
       if (this.answer.indexOf(this.words[i].word) > 0) {
-        console.log(this.words[i].word, 'used');
+        // console.log(this.words[i].word, 'used');
         this.results.push(new Word(this.words[i].word, 'used'))
         continue;
       }
@@ -53,12 +54,12 @@ export default class Checker {
 }
 
 const wordList = [
-  'HAPPY',
-  'HELLO',
-  'PUPPY',
-  'AUDIO',
-  'UNDER',
-  'SUNNY',
-  'KITTY',
-  'APPLE'
+  'happy',
+  'hello',
+  'puppy',
+  'audio',
+  'under',
+  'sunny',
+  'kitty',
+  'apple'
 ]
