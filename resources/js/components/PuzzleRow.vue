@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="grid grid-cols-5 gap-2">
     <PuzzleWord v-for="answer in answers"
                 :answer="answer"
                 :class="{'shake': isInvalid}"

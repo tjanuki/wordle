@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex-col w-[350px] h-[420px] p-2 grid grid-rows-6 gap-2">
     <PuzzleRow v-for="index in Array(6).keys()"
                :row="index"
                :key="index"

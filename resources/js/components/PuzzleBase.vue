@@ -6,11 +6,13 @@
       <h1 class="text-4xl font-bold font-serif">Wordle</h1>
     </header>
 
-    <ModalMessage/>
+      <ModalMessage/>
 
-    <PuzzleTable/>
+    <div class="flex w-full justify-center items-center">
+      <PuzzleTable/>
+    </div>
 
-    <PuzzleKeyboards/>
+      <PuzzleKeyboards/>
   </div>
 </template>
 

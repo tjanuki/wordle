@@ -1,5 +1,5 @@
 <template>
-  <div class="font-bold px-4 py-4 mx-1 my-1 rounded"
+  <div class="font-bold w-[10%] py-4 text-sm xs:text-md xs:px-4 xs:py-4 mx-1 my-1 rounded flex justify-center"
        :class="{ 'border-green-600 bg-green-600': isExact, 'border-amber-300 bg-amber-300': isUsed, 'border-gray-500 bg-gray-500': isInvalid, 'bg-gray-300 border-gray': isEmpty}"
        @click="clickButton"
   ><span :class="{'text-white': !isEmpty}"><slot/></span>
