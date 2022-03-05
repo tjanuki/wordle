@@ -1,4 +1,4 @@
-import Word from "./word";
+import Word from './word'
 import { dict } from './dict'
 
 export default class Checker {
@@ -21,7 +21,7 @@ export default class Checker {
       return result.status === 'exact'
     })
 
-    return exactAnswers.length === 5;
+    return exactAnswers.length === 5
   }
 
   getResults() {
@@ -31,36 +31,19 @@ export default class Checker {
         continue
       }
 
-      // console.log('answer', this.words[i].word);
-      // console.log('word', this.answer.substr(i, 1));
       if (this.words[i].word === this.answer.substr(i, 1)) {
-        // console.log(this.words[i].word, 'exact');
         this.results.push(new Word(this.words[i].word, 'exact'))
-        continue;
+        continue
       }
 
       if (this.answer.indexOf(this.words[i].word) > 0) {
-        // console.log(this.words[i].word, 'used');
         this.results.push(new Word(this.words[i].word, 'used'))
-        continue;
+        continue
       }
 
-      // console.log(this.words[i].word, 'unknown');
-      // this.results.push('invalid')
       this.results.push(new Word(this.words[i].word, 'invalid'))
     }
 
-    return this.results;
+    return this.results
   }
 }
-
-// const wordList = [
-//   'happy',
-//   'hello',
-//   'puppy',
-//   'audio',
-//   'under',
-//   'sunny',
-//   'kitty',
-//   'apple'
-// ]

@@ -8496,4 +8496,4 @@ export const dict = [
   'zygon',
   'zymic',
   'zymin'
-];
+]

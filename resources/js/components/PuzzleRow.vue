@@ -1,18 +1,24 @@
 <template>
   <div class="grid grid-cols-5 gap-2">
-    <PuzzleWord v-for="answer in answers"
-                :answer="answer"
-                :class="{'shake': isInvalid}"
+    <PuzzleWord
+      v-for="(answer, index) in answers"
+      :key="index"
+      :answer="answer"
+      :class="{ shake: isInvalid }"
     />
   </div>
 </template>
 
 <script>
-import PuzzleWord from "./PuzzleWord";
+import PuzzleWord from './PuzzleWord'
+
 export default {
-  components: {PuzzleWord},
+  components: { PuzzleWord },
   props: {
-    row: Number
+    row: {
+      type: Number,
+      required: true,
+    },
   },
   computed: {
     answers() {
@@ -21,11 +27,11 @@ export default {
     },
     isInvalid() {
       if (this.row !== this.$store.state.currentRow) {
-        return false;
+        return false
       }
 
       return this.$store.state.gameStatus === 'invalid'
     },
-  }
+  },
 }
 </script>

@@ -1,11 +1,11 @@
 export default class Word {
   constructor(word = '', status = '') {
-    this.word = word;
-    this.status = status;
+    this.word = word
+    this.status = status
   }
 
   isEmpty() {
-    return ! this.word
+    return !this.word
   }
 
   isDraft() {
@@ -33,8 +33,6 @@ export default class Word {
   }
 
   isFixed() {
-    return ! this.isEmpty() && ! this.isDraft() && ! this.isChecked()
+    return !this.isEmpty() && !this.isDraft() && !this.isChecked()
   }
 }
-
-

@@ -1,15 +1,15 @@
-require('./bootstrap');
+require('./bootstrap')
 
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 
 import PuzzleBase from './components/PuzzleBase'
 
 const app = createApp({
   components: {
-    PuzzleBase
-  }
+    PuzzleBase,
+  },
 })
 
-import store from "./store";
+import store from './store'
 app.use(store)
-app.mount('#app');
+app.mount('#app')

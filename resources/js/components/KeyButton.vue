@@ -1,24 +1,34 @@
 <template>
-  <div class="font-bold w-[10%] py-4 text-sm xs:text-md xs:px-4 xs:py-4 mx-1 my-1 rounded flex justify-center"
-       :class="{ 'border-green-600 bg-green-600': isExact, 'border-amber-300 bg-amber-300': isUsed, 'border-gray-500 bg-gray-500': isInvalid, 'bg-gray-300 border-gray': isEmpty}"
-       @click="clickButton"
-  ><span :class="{'text-white': !isEmpty}"><slot/></span>
+  <div
+    class="xs:text-md xs:px-4 xs:py-4 mx-1 my-1 flex w-[10%] justify-center rounded py-4 text-sm font-bold uppercase"
+    :class="{
+      'border-green-600 bg-green-600': isExact,
+      'border-amber-300 bg-amber-300': isUsed,
+      'border-gray-500 bg-gray-500': isInvalid,
+      'border-gray bg-gray-300': isEmpty,
+    }"
+    @click="clickButton"
+  >
+    <span :class="{ 'text-white': !isEmpty }"><slot /></span>
   </div>
 </template>
 <script>
 export default {
   props: {
-    inputKey: String,
+    inputKey: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     status() {
       let status = ''
       for (let i = 0; i < this.$store.state.currentRow; i++) {
         for (let j = 0; j < 5; j++) {
-          let word = this.$store.state.answers[i][j];
+          let word = this.$store.state.answers[i][j]
           if (word.word === this.inputKey) {
             if (word.isExact()) {
-              return 'exact';
+              return 'exact'
             }
             if (word.isUsed()) {
               status = 'used'
@@ -30,7 +40,7 @@ export default {
         }
       }
 
-      return status;
+      return status
     },
     isEmpty() {
       return this.status === ''
@@ -43,7 +53,7 @@ export default {
     },
     isInvalid() {
       return this.status === 'invalid'
-    }
+    },
   },
   methods: {
     clickButton() {
@@ -56,9 +66,9 @@ export default {
       }
 
       this.$store.dispatch('clickButton', {
-        key: this.inputKey
+        key: this.inputKey,
       })
     },
-  }
+  },
 }
 </script>

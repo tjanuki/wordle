@@ -1,54 +1,54 @@
 <template>
-  <div class="flex flex-col justify-between items-center h-screen w-full"
-       @keyup.delete="keyUp"
+  <div
+    class="flex h-screen w-full flex-col items-center justify-between"
+    @keyup.delete="keyUp"
   >
-    <header class="flex justify-center py-2 border border-bottom w-full">
-      <h1 class="text-4xl font-bold font-serif">Wordle</h1>
+    <header class="border-bottom flex w-full justify-center border py-2">
+      <h1 class="font-serif text-4xl font-bold">
+        <span>Wordle</span>
+      </h1>
     </header>
 
-      <ModalMessage/>
-
-    <div class="flex w-full justify-center items-center">
-      <PuzzleTable/>
+    <ModalMessage />
+    <div class="flex w-full items-center justify-center">
+      <PuzzleTable />
     </div>
 
-      <PuzzleKeyboards/>
+    <PuzzleKeyboards />
   </div>
 </template>
 
 <script>
-import PuzzleTable from "./PuzzleTable";
-import PuzzleKeyboards from "./PuzzleKeyboards";
-import ModalMessage from "./ModalMessage";
+import PuzzleTable from './PuzzleTable'
+import PuzzleKeyboards from './PuzzleKeyboards'
+import ModalMessage from './ModalMessage'
 
 export default {
-  components: {ModalMessage, PuzzleKeyboards, PuzzleTable},
-  methods: {
-    keyUp(event) {
-      // console.log('Base', event);
-      // console.log('KeyCode:' + event.key, event.keyCode);
-      if (event.keyCode === 8) { // Backspace or Delete
-        this.$store.dispatch('deleteAnswer')
-      }
-      if (event.keyCode === 13) { // Enter
-        this.$store.dispatch('enterRow')
-      }
-      if (65 <= event.keyCode && event.keyCode <= 90) { // A - Z
-        // console.log('KeyCode:' + event.key, event.keyCode);
-        // console.log('FromCharCode:' + String.fromCharCode(event.keyCode));
-        this.$store.dispatch('clickButton', {
-          key: String.fromCharCode(event.keyCode)
-        })
-      }
-    }
-  },
+  components: { ModalMessage, PuzzleKeyboards, PuzzleTable },
   created() {
     this.$store.dispatch('init')
     document.addEventListener('keyup', this.keyUp)
   },
+  methods: {
+    keyUp(event) {
+      if (event.keyCode === 8) {
+        // Backspace or Delete
+        this.$store.dispatch('deleteAnswer')
+      }
+      if (event.keyCode === 13) {
+        // Enter
+        this.$store.dispatch('enterRow')
+      }
+      if (65 <= event.keyCode && event.keyCode <= 90) {
+        // A - Z
+        this.$store.dispatch('clickButton', {
+          key: String.fromCharCode(event.keyCode),
+        })
+      }
+    },
+  },
   onUnmounted() {
     document.removeEventListener('keyup')
-  }
-
+  },
 }
 </script>
