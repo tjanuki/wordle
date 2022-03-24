@@ -130,6 +130,9 @@ const store = createStore({
         }
       }, 1500)
     },
+    solve() {
+
+    }
   },
 })
 

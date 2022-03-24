@@ -42,14 +42,10 @@ class SeparateWord extends Command
             ->get()
             ->map(function ($word) {
                 $letters = str_split($word->word);
-                $variations = [];
                 foreach ($letters as $index => $letter) {
                     $word->{'letter' . $index + 1} = $letter;
-                    if (! in_array($letter, $variations)){
-                        $variations[] = $letter;
-                    }
                 }
-                $word->variety = count($variations);
+                $word->variety = count(array_unique($letters));
                 $word->save();
             });
 

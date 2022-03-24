@@ -36,7 +36,7 @@ export default class Checker {
         continue
       }
 
-      if (this.answer.indexOf(this.words[i].word) > 0) {
+      if (this.answer.indexOf(this.words[i].word) > -1) {
         this.results.push(new Word(this.words[i].word, 'used'))
         continue
       }
