@@ -20,7 +20,8 @@
       </p>
 
       <button
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full disabled:bg-gray-500"
+        :disabled="isLoading"
         @click="solve"
       >
         Solve it!
@@ -38,6 +39,11 @@ import ModalMessage from './ModalMessage'
 
 export default {
   components: { ModalMessage, PuzzleKeyboards, PuzzleTable },
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading
+    }
+  },
   created() {
     this.$store.dispatch('init')
     document.addEventListener('keyup', this.keyUp)
